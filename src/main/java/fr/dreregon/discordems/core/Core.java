@@ -6,15 +6,13 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 
 public class Core {
-    private Logger logger = LoggerFactory.getLogger(Core.class);
-    private final String VERSION = "2.0.0";
-    private final File BASE_DIR = new File("DISCORD-EMS");
-    private final File CONFIG_DIR = new File(BASE_DIR.getAbsolutePath()+File.separatorChar+"CONFIG");
-    private final File SAVED_EMBEDS_DIR = new File(BASE_DIR.getAbsolutePath()+File.separatorChar+"SAVED_EMBEDS");
+    private final Logger logger = LoggerFactory.getLogger(Core.class);
+    public static final String VERSION = "2.0.0";
+    public static final File BASE_DIR = new File("DISCORD-EMS");
+    public static final File CONFIG_DIR = new File(BASE_DIR.getAbsolutePath()+File.separatorChar+"CONFIG");
+    public static final File SAVED_EMBEDS_DIR = new File(BASE_DIR.getAbsolutePath()+File.separatorChar+"SAVED_EMBEDS");
 
-    public Core (){
-
-    }
+    public Core(){}
 
     public void launch(){
         logger.info("Launching Discord EMS "+VERSION);
@@ -32,6 +30,12 @@ public class Core {
         }
         if(!SAVED_EMBEDS_DIR.exists()){
             if(SAVED_EMBEDS_DIR.mkdir()) logger.info("Created Embed directory.");
+        }
+
+        SystemConfiguration configuration = new SystemConfiguration();
+        if(!configuration.exists()){
+            configuration.reset();
+            logger.info("Created configuration file.");
         }
     }
 
