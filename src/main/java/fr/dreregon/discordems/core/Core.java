@@ -1,5 +1,6 @@
 package fr.dreregon.discordems.core;
 
+import fr.dreregon.discordems.core.console.ConsoleHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

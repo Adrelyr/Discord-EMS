@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SystemConfiguration implements Configuration{
@@ -39,7 +40,7 @@ public class SystemConfiguration implements Configuration{
         }
     }
 
-    public Object get() {
+    public SystemConfiguration get() {
         try {
             return objectMapper.readValue(CONFIG_FILE, this.getClass());
         } catch (IOException e) {
@@ -57,7 +58,7 @@ public class SystemConfiguration implements Configuration{
 
     public void reset() {
         try {
-            objectMapper.writeValue(CONFIG_FILE, new SystemConfiguration(null, "en"));
+            objectMapper.writeValue(CONFIG_FILE, new SystemConfiguration(new ArrayList<>(), "en"));
         } catch (IOException e) {
             e.printStackTrace();
         }
