@@ -12,6 +12,7 @@ public class Core {
     public static final File BASE_DIR = new File("DISCORD-EMS");
     public static final File CONFIG_DIR = new File(BASE_DIR.getAbsolutePath()+File.separatorChar+"CONFIG");
     public static final File SAVED_EMBEDS_DIR = new File(BASE_DIR.getAbsolutePath()+File.separatorChar+"SAVED_EMBEDS");
+    public static SystemConfiguration configuration = new SystemConfiguration();
 
     public Core(){}
 
@@ -19,6 +20,7 @@ public class Core {
         logger.info("Launching Discord EMS "+VERSION);
         checkSystemFiles();
         launchConsoleThread();
+        launchBot();
     }
 
     private void checkSystemFiles(){
@@ -33,11 +35,11 @@ public class Core {
             if(SAVED_EMBEDS_DIR.mkdir()) logger.info("Created Embed directory.");
         }
 
-        SystemConfiguration configuration = new SystemConfiguration();
         if(!configuration.exists()){
             configuration.reset();
             logger.info("Created configuration file.");
         }
+        configuration = configuration.get();
     }
 
     private void launchConsoleThread(){
@@ -45,6 +47,9 @@ public class Core {
     }
 
     private void launchBot(){
-
+        if(configuration.getTokens().isEmpty()){
+            logger.error("No tokens are saved. Please add a token using\n  setToken <token>\n Then start the bot by typing\n  relaunch");
+        }
+        Bot bot = new Bot(configuration.getTokens().get(0));
     }
 }
